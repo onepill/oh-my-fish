@@ -12,7 +12,7 @@ function fish_prompt
   set -l green (set_color green)
   set -l normal (set_color normal)
 
-  set -l arrow "λ"
+  set -l arrow ">"
   set -l cwd $blue(basename (prompt_pwd))
 
   if [ (_git_branch_name) ]
@@ -26,4 +26,8 @@ function fish_prompt
   end
 
   echo -n -s $cwd $git_info $normal ' ' $arrow ' '
+
+  if set -q VIRTUAL_ENV
+    echo -n -s (set_color cyan) "(" (basename "$VIRTUAL_ENV") ")" (set_color normal) " "
+  end
 end
